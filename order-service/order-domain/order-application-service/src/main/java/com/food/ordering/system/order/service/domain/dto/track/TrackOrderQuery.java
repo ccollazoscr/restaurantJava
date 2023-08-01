@@ -8,9 +8,12 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class TrackOrderQuery {
     private final UUID orderTrackingId;
+
+    public UUID getOrderTrackingId() {
+        return orderTrackingId;
+    }
 
     public TrackOrderQuery(UUID orderTrackingId) {
         this.orderTrackingId = orderTrackingId;

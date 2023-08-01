@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class OrderItem {
     @NotNull
     private final UUID productId;
@@ -20,6 +19,13 @@ public class OrderItem {
     private final BigDecimal price;
     @NotNull
     private final BigDecimal subTotal;
+
+    private OrderItem(Builder builder) {
+        productId = builder.productId;
+        quantity = builder.quantity;
+        price = builder.price;
+        subTotal = builder.subTotal;
+    }
 
     public UUID getProductId() {
         return productId;
@@ -42,5 +48,48 @@ public class OrderItem {
         this.quantity = quantity;
         this.price = price;
         this.subTotal = subTotal;
+    }
+
+    public static OrderItem.Builder builder(){
+        return  new OrderItem.Builder();
+    }
+
+
+    public static final class Builder {
+        private @NotNull UUID productId;
+        private @NotNull Integer quantity;
+        private @NotNull BigDecimal price;
+        private @NotNull BigDecimal subTotal;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder productId(@NotNull UUID val) {
+            productId = val;
+            return this;
+        }
+
+        public Builder quantity(@NotNull Integer val) {
+            quantity = val;
+            return this;
+        }
+
+        public Builder price(@NotNull BigDecimal val) {
+            price = val;
+            return this;
+        }
+
+        public Builder subTotal(@NotNull BigDecimal val) {
+            subTotal = val;
+            return this;
+        }
+
+        public OrderItem build() {
+            return new OrderItem(this);
+        }
     }
 }

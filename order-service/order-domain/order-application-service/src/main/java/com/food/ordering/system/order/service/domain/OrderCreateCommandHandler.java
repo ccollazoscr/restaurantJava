@@ -28,6 +28,7 @@ public class OrderCreateCommandHandler {
 
     private final OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher;
 
+
     public OrderCreateCommandHandler(OrderCreateHelper orderCreateHelper, OrderDataMapper orderDataMapper, OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher) {
         this.orderCreateHelper = orderCreateHelper;
         this.orderDataMapper = orderDataMapper;
@@ -38,6 +39,6 @@ public class OrderCreateCommandHandler {
     public CreateOrderResponse creteOrder(CreateOrderCommand createOrderCommand) {
         OrderCreatedEvent orderCreteEvent = orderCreateHelper.persistOrder(createOrderCommand);
         orderCreatedPaymentRequestMessagePublisher.publish(orderCreteEvent);
-        return orderDataMapper.orderToCreateOrderResponse(orderCreteEvent.getOrder());
+        return orderDataMapper.orderToCreateOrderResponse(orderCreteEvent.getOrder(), "Order Created Success");
     }
 }
